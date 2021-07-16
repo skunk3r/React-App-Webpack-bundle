@@ -36,6 +36,10 @@ module.exports = {
 				{
 					from: path.resolve(__dirname, 'public/favicon.ico'),
 					to: path.resolve(__dirname, 'dist')
+				},
+				{
+					from: path.resolve(__dirname, 'src/assets/'),
+					to: path.resolve(__dirname, 'dist/assets/')
 				}
 			]
 		}),
@@ -50,8 +54,14 @@ module.exports = {
 				use: [MiniCssExtactPlugin.loader, 'css-loader']
 			},
 			{
-				test: /\.(png|jpg|svg|gif)$/,
-				use: ['file-loader']
+				test: /\.(png|jpg|svg|gif|ttf|woff|woff2|eot)$/,
+				use: {
+					loader: 'file-loader',
+					options: {
+						name: '[path][name].[ext]', 
+						emitFile: false
+					}
+				}
 			},
 			{
 				test: /\.m?js$/,
